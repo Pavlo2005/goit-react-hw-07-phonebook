@@ -2,11 +2,10 @@ import { ContactsCard } from "components/ContactsCard/ContactsCard";
 import { ContactElement } from "./Contacts.styled";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFilter } from "redux/filterSlice";
+import { valueCurentContacts } from "redux/selectors";
 
 export const Contacts = () => {
-    const contacts = useSelector(state => state.contacts.contacts);
-    const filter = useSelector(state => state.filter.filter);
-    const newContacts = contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
+    const newContacts = useSelector(valueCurentContacts);
     const dispatch = useDispatch();
 
     return (

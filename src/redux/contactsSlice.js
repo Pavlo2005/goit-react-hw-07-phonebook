@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
+import { fetchContacts } from "./operations";
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
@@ -7,20 +8,12 @@ const persistConfig = {
     storage,
 };
 
-const getContacts = () => {
-    const savedContacts = localStorage.getItem('saved-contacts');
-    if (savedContacts !== null) {
-        console.log("JSON - ", JSON.parse(savedContacts));
-        return JSON.parse(savedContacts);
-    } else {
-        return [];
-    }
-}
-
 const contactsSlice = createSlice({
     name: 'contacts',
     initialState: {
-        contacts: getContacts(),
+        contacts: [],
+        isLoading: false,
+        error: null,
     },
     reducers: {
         changeContacts(state, action) {
@@ -32,6 +25,20 @@ const contactsSlice = createSlice({
         deleteContact(state, action) {
             console.log("deleteContact")
             state.contacts = state.contacts.filter(contact => contact.id !== action.payload)
+        },
+    },
+    extraReducers: {
+        [fetchContacts.pending](state) {
+            state.isLoading = true;
+        },
+        [fetchContacts.fulfilled](state, action) {
+            state.isLoading = false;
+            state.error = null;
+            state.contacts = action.payload;
+        },
+        [fetchContacts.rejected](state, action) {
+            state.isLoading = false;
+            state.error = action.payload;
         },
     },
 });

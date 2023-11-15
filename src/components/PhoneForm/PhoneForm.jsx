@@ -4,6 +4,7 @@ import { ErrMessage, StyledForm } from './PhoneForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 import { nanoid } from '@reduxjs/toolkit';
+import { valueContacts } from 'redux/selectors';
 
 const quizSchema = Yup.object().shape({
     name: Yup.string().min(3, 'Too short!').required('This field is required!'),
@@ -16,7 +17,7 @@ const quizSchema = Yup.object().shape({
 export const PhoneForm = () => {
 
     const dispatch = useDispatch();
-    const contacts = useSelector(state => state.contacts.contacts)
+    const contacts = useSelector(valueContacts)
 
     const onAddPhone = newPhone => {
         if (contacts.find(contact => contact.name === newPhone.name)) {
