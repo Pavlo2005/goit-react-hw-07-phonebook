@@ -3,8 +3,7 @@ import { ContactElement } from "./Contacts.styled";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFilter } from "redux/filterSlice";
 import { valueCurentContacts } from "redux/selectors";
-import { fetchContacts } from "redux/operations";
-import { useEffect } from "react";
+
 
 export const Contacts = () => {
     const newContacts = useSelector(valueCurentContacts);
