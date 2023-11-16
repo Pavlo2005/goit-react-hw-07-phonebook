@@ -8,7 +8,6 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(1);
     dispatch(fetchContacts());
   }, [dispatch]);
 

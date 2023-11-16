@@ -1,6 +1,8 @@
 import { deleteContact } from "redux/contactsSlice";
 import { Button, Container } from "./ContactsCard.styled";
 import { useDispatch } from "react-redux";
+import { deleteContacts, fetchContacts } from "redux/operations";
+import { useEffect } from "react";
 
 export const ContactsCard = (
     { contact: {
@@ -14,7 +16,9 @@ export const ContactsCard = (
     return (
         <Container>
             <p>{`${name}: ${number}`}</p>
-            <Button onClick={() => dispatch(deleteContact(id))}>Delete</Button>
+            <Button onClick={() => {
+                dispatch(deleteContacts(id))
+            }}>Delete</Button>
         </Container>
     );
 }
